@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import "dotenv/config";
 import mongoose from "mongoose";
+import myUserRoute from "./routes/MyUserRoutes";
 
 mongoose
   .connect(process.env.MONGODB_URI as string)
@@ -17,6 +18,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", async (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
+
+app.use("/api/my/user", myUserRoute);
 
 app.listen(5000, () => {
   console.log("server started on port 5000");
