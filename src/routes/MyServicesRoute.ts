@@ -31,3 +31,5 @@ router.put(
   jwtParse,
   MyServicesController.updateMyServiceProvider
 );
+
+export default router;
