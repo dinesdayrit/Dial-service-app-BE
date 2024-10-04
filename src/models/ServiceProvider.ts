@@ -17,7 +17,7 @@ const serviceProviderSchema = new mongoose.Schema({
   serviceProviderName: { type: String, required: true },
   city: { type: String, required: true },
   country: { type: String, required: true },
-  cuisines: [{ type: String, required: true }],
+  serviceSector: [{ type: String, required: true }],
   serviceItems: [serviceItemSchema],
   imageUrl: { type: String, required: true },
   lastUpdated: { type: Date, required: true },
