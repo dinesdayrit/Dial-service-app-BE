@@ -27,6 +27,7 @@ router.post(
 
 router.put(
   "/",
+  upload.single("imageFile"),
   jwtCheck,
   jwtParse,
   MyServicesController.updateMyServiceProvider

@@ -17,6 +17,7 @@ const getMyServiceProvider = async (req: Request, res: Response) => {
 };
 
 const createMyServiceProvider = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const existingServiceProvider = await ServiceProvider.findOne({
       user: req.userId,
@@ -44,6 +45,7 @@ const createMyServiceProvider = async (req: Request, res: Response) => {
 };
 
 const updateMyServiceProvider = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const serviceProvider = await ServiceProvider.findOne({
       user: req.userId,
@@ -57,13 +59,8 @@ const updateMyServiceProvider = async (req: Request, res: Response) => {
     serviceProvider.city = req.body.city;
     serviceProvider.country = req.body.country;
     serviceProvider.serviceSector = req.body.serviceSector;
-    serviceProvider.serviceItems = req.body.serviceSector;
+    serviceProvider.serviceItems = req.body.serviceItems;
     serviceProvider.lastUpdated = new Date();
-
-    if (req.file) {
-      const imageUrl = await uploadImage(req.file as Express.Multer.File);
-      serviceProvider.imageUrl = imageUrl;
-    }
 
     await serviceProvider.save();
     res.status(200).send(serviceProvider);
