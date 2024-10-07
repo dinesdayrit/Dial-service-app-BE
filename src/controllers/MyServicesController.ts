@@ -56,8 +56,8 @@ const updateMyServiceProvider = async (req: Request, res: Response) => {
     serviceProvider.serviceProviderName = req.body.serviceProviderName;
     serviceProvider.city = req.body.city;
     serviceProvider.country = req.body.country;
-    serviceProvider.serviceSector = req.body.cuisines;
-    serviceProvider.serviceItems = req.body.menuItems;
+    serviceProvider.serviceSector = req.body.serviceSector;
+    serviceProvider.serviceItems = req.body.serviceSector;
     serviceProvider.lastUpdated = new Date();
 
     if (req.file) {
