@@ -62,6 +62,11 @@ const updateMyServiceProvider = async (req: Request, res: Response) => {
     serviceProvider.serviceItems = req.body.serviceItems;
     serviceProvider.lastUpdated = new Date();
 
+    if (req.file) {
+      const imageUrl = await uploadImage(req.file as Express.Multer.File);
+      serviceProvider.imageUrl = imageUrl;
+    }
+
     await serviceProvider.save();
     res.status(200).send(serviceProvider);
   } catch (error) {
