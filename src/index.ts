@@ -5,6 +5,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoutes";
 import myServicesRoute from "./routes/MyServicesRoute";
+import myServiceProvidersRoute from "./routes/ServicesProvidersRoute";
 import { v2 as cloudinary } from "cloudinary";
 
 mongoose
@@ -29,6 +30,7 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/services", myServicesRoute);
+app.use("/api/serviceProviders", myServiceProvidersRoute);
 
 app.listen(5000, () => {
   console.log("server started on port 5000");

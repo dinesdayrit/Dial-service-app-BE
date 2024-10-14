@@ -4,7 +4,7 @@ import ServiceProvider from "../controllers/ServiceProviderController";
 
 const router = express.Router();
 
-router.get("/", ServiceProvider.getAllServiceProvider);
+router.get("/", ServiceProvider.getAllServiceProviders);
 
 router.get(
   "/:serviceProviderId",
