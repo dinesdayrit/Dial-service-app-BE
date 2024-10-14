@@ -1,6 +1,16 @@
 import { Request, Response } from "express";
 import ServiceProvider from "../models/ServiceProvider";
 
+const getAllServiceProviders = async (req: Request, res: Response) => {
+  try {
+    const serviceProviders = await ServiceProvider.find().lean();
+    res.json(serviceProviders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "something went wrong" });
+  }
+};
+
 const getServiceProvider = async (req: Request, res: Response) => {
   try {
     const serviceProviderId = req.params.serviceProviderId;
@@ -86,6 +96,7 @@ const searchServiceProvider = async (req: Request, res: Response) => {
 };
 
 export default {
+  getAllServiceProviders,
   getServiceProvider,
   searchServiceProvider,
 };
