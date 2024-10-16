@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ServiceProvider from "../models/ServiceProvider";
 
 const getAllServiceProviders = async (req: Request, res: Response) => {
+  console.log("getting all service Providers");
   try {
     const serviceProviders = await ServiceProvider.find().lean();
     res.json(serviceProviders);
