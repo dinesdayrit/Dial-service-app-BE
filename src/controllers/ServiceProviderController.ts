@@ -30,6 +30,7 @@ const getServiceProvider = async (req: Request, res: Response) => {
 
 const searchServiceProvider = async (req: Request, res: Response) => {
   console.log(req.params);
+  console.log(req.query.selectedSectors);
   try {
     const city = req.params.city;
 
@@ -58,7 +59,7 @@ const searchServiceProvider = async (req: Request, res: Response) => {
         .split(",")
         .map((sector) => new RegExp(sector, "i"));
 
-      query["serviceSectors"] = { $all: ServiceSectorsArray };
+      query["serviceSector"] = { $all: ServiceSectorsArray };
     }
 
     if (searchQuery) {
