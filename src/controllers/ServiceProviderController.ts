@@ -29,11 +29,12 @@ const getServiceProvider = async (req: Request, res: Response) => {
 };
 
 const searchServiceProvider = async (req: Request, res: Response) => {
+  console.log(req.params);
   try {
     const city = req.params.city;
 
     const searchQuery = (req.query.searchQuery as string) || "";
-    const selectedCuisines = (req.query.selectedCuisines as string) || "";
+    const selectedSectors = (req.query.selectedSectors as string) || "";
     const sortOption = (req.query.sortOption as string) || "lastUpdated";
     const page = parseInt(req.query.page as string) || 1;
 
@@ -52,19 +53,19 @@ const searchServiceProvider = async (req: Request, res: Response) => {
       });
     }
 
-    if (selectedCuisines) {
-      const cuisinesArray = selectedCuisines
+    if (selectedSectors) {
+      const ServiceSectorsArray = selectedSectors
         .split(",")
-        .map((cuisine) => new RegExp(cuisine, "i"));
+        .map((sector) => new RegExp(sector, "i"));
 
-      query["cuisines"] = { $all: cuisinesArray };
+      query["serviceSectors"] = { $all: ServiceSectorsArray };
     }
 
     if (searchQuery) {
       const searchRegex = new RegExp(searchQuery, "i");
       query["$or"] = [
-        { restaurantName: searchRegex },
-        { cuisines: { $in: [searchRegex] } },
+        { serviceProviderName: searchRegex },
+        { seriviceSector: { $in: [searchRegex] } },
       ];
     }
 
@@ -88,6 +89,7 @@ const searchServiceProvider = async (req: Request, res: Response) => {
         pages: Math.ceil(total / pageSize),
       },
     };
+    console.log(response);
 
     res.json(response);
   } catch (error) {
