@@ -56,6 +56,7 @@ const updateMyServiceProvider = async (req: Request, res: Response) => {
     }
 
     serviceProvider.serviceProviderName = req.body.serviceProviderName;
+    serviceProvider.serviceProviderName = req.body.addressLine1;
     serviceProvider.city = req.body.city;
     serviceProvider.country = req.body.country;
     serviceProvider.serviceSector = req.body.serviceSector;
