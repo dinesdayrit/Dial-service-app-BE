@@ -15,6 +15,8 @@ export type MenuItemType = InferSchemaType<typeof serviceItemSchema>;
 const serviceProviderSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   serviceProviderName: { type: String, required: true },
+  serviceProviderAbout: { type: String },
+  officeHours: { type: String },
   addressLine1: { type: String, required: true },
   city: { type: String, required: true },
   country: { type: String, required: true },
