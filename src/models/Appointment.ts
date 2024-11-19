@@ -15,7 +15,7 @@ const AppointmentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["placed", "paid", "inProgress", "outForDelivery", "delivered"],
+    enum: ["placed", "confirmed", "inProgress", "serviceCompleted"],
   },
   createdAt: { type: Date, default: Date.now },
 });
