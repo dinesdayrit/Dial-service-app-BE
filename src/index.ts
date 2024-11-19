@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUserRoutes";
 import myServicesRoute from "./routes/MyServicesRoute";
 import serviceProvidersRoute from "./routes/ServicesProvidersRoute";
+import appointmentRoute from "./routes/AppointmentRoute";
 import { v2 as cloudinary } from "cloudinary";
 
 mongoose
@@ -31,6 +32,7 @@ app.get("/", async (req: Request, res: Response) => {
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/services", myServicesRoute);
 app.use("/api/serviceProviders", serviceProvidersRoute);
+app.use("/api/appointment", appointmentRoute);
 
 app.listen(5000, () => {
   console.log("server started on port 5000");
