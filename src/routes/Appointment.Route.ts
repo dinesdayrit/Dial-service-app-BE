@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get("/", jwtCheck, jwtParse, AppointmentController.getMyAppointments);
 
+router.post("/", jwtCheck, jwtParse);
+
 export default router;

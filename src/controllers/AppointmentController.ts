@@ -14,4 +14,42 @@ const getMyAppointments = async (req: Request, res: Response) => {
   }
 };
 
-export default { getMyAppointments };
+const createAppointment = async (req: Request, res: Response) => {
+  try {
+    const userId = req.userId;
+
+    const { ServiceProvider, apointmentDetails, status } = req.body;
+
+    // Validate input fields
+    if (
+      !apointmentDetails ||
+      !apointmentDetails.email ||
+      !apointmentDetails.name ||
+      !apointmentDetails.addressLine1 ||
+      !apointmentDetails.city ||
+      !apointmentDetails.appointmentDate
+    ) {
+      res.status(400).json({ message: "Invalid input data" });
+      return;
+    }
+
+    // Create a new appointment document
+    const newAppointment = new Appointment({
+      ServiceProvider,
+      user: userId,
+      apointmentDetails,
+      status: status || "placed",
+      createdAt: new Date(),
+    });
+
+    // Save to the database
+    const savedAppointment = await newAppointment.save();
+
+    res.status(201).json(savedAppointment);
+  } catch (error) {
+    console.error("Error creating appointment:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export default { getMyAppointments, createAppointment };
