@@ -15,6 +15,7 @@ const getMyAppointments = async (req: Request, res: Response) => {
 };
 
 const createAppointment = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const userId = req.userId;
 

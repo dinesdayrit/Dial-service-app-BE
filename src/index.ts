@@ -32,7 +32,7 @@ app.get("/", async (req: Request, res: Response) => {
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/services", myServicesRoute);
 app.use("/api/serviceProviders", serviceProvidersRoute);
-app.use("/api/appointment", appointmentRoute);
+app.use("/api/appointments", appointmentRoute);
 
 app.listen(5000, () => {
   console.log("server started on port 5000");
