@@ -2,12 +2,15 @@ import Appointment from "../models/Appointment";
 import { Request, Response } from "express";
 
 const getMyAppointments = async (req: Request, res: Response) => {
+  console.log("getting appointments");
+  console.log(req.userId);
   try {
     const appointment = await Appointment.find({ user: req.userId })
-      .populate("")
+      .populate("ServiceProvider")
       .populate("user");
 
     res.json(appointment);
+    console.log(appointment);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "something went wrong" });
