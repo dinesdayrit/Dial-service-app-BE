@@ -21,8 +21,7 @@ const createAppointment = async (req: Request, res: Response) => {
   console.log(req.body);
   try {
     const userId = req.userId;
-
-    const { ServiceProvider, apointmentDetails, status } = req.body;
+    const { serviceProvider, apointmentDetails, status } = req.body;
 
     // Validate input fields
     if (
@@ -39,7 +38,7 @@ const createAppointment = async (req: Request, res: Response) => {
 
     // Create a new appointment document
     const newAppointment = new Appointment({
-      ServiceProvider,
+      ServiceProvider: serviceProvider,
       user: userId,
       apointmentDetails,
       status: status || "placed",
