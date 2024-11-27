@@ -33,4 +33,11 @@ router.put(
   MyServicesController.updateMyServiceProvider
 );
 
+router.get(
+  "/appointments",
+  jwtCheck,
+  jwtParse,
+  MyServicesController.getMyServicesAppointments
+);
+
 export default router;
