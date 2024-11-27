@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ServiceProvider from "../models/ServiceProvider";
 import cloudinary from "cloudinary";
 import mongoose from "mongoose";
+import Appointment from "../models/Appointment";
 
 const getMyServiceProvider = async (req: Request, res: Response) => {
   try {
@@ -78,6 +79,30 @@ const updateMyServiceProvider = async (req: Request, res: Response) => {
   }
 };
 
+const getMyServicesAppointments = async (req: Request, res: Response) => {
+  try {
+    if (!req.userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const serviceProvider = await ServiceProvider.findOne({ user: req.userId });
+    if (!serviceProvider) {
+      return res.status(404).json({ message: "restaurant not found" });
+    }
+
+    const appointments = await Appointment.find({
+      ServiceProvider: serviceProvider._id,
+    })
+      .populate("ServiceProvider")
+      .populate("user");
+
+    res.json(appointments);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "something went wrong" });
+  }
+};
+
 const uploadImage = async (file: Express.Multer.File) => {
   const image = file;
   const base64Image = Buffer.from(image.buffer).toString("base64");
@@ -91,4 +116,5 @@ export default {
   getMyServiceProvider,
   createMyServiceProvider,
   updateMyServiceProvider,
+  getMyServicesAppointments,
 };
