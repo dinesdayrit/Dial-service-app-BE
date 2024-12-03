@@ -40,4 +40,11 @@ router.get(
   MyServicesController.getMyServicesAppointments
 );
 
+router.patch(
+  "/appointment/:appointmentId/status",
+  jwtCheck,
+  jwtParse,
+  MyServicesController.updateAppointmentStatus
+);
+
 export default router;
