@@ -87,7 +87,7 @@ const getMyServicesAppointments = async (req: Request, res: Response) => {
 
     const serviceProvider = await ServiceProvider.findOne({ user: req.userId });
     if (!serviceProvider) {
-      return res.status(404).json({ message: "restaurant not found" });
+      return res.status(404).json({ message: "service provider not found" });
     }
 
     const appointments = await Appointment.find({
@@ -100,6 +100,34 @@ const getMyServicesAppointments = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "something went wrong" });
+  }
+};
+
+const updateAppointmentStatus = async (req: Request, res: Response) => {
+  try {
+    const { appointmentId } = req.params;
+    const { status } = req.body;
+
+    const appointment = await Appointment.findById(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    const serviceProvider = await ServiceProvider.findById(
+      appointment.ServiceProvider
+    );
+
+    if (serviceProvider?.user?._id.toString() !== req.userId) {
+      return res.status(401).send();
+    }
+
+    appointment.status = status;
+    await appointment.save();
+
+    res.status(200).json(appointment);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "unable to update appointment status" });
   }
 };
 
@@ -117,4 +145,5 @@ export default {
   createMyServiceProvider,
   updateMyServiceProvider,
   getMyServicesAppointments,
+  updateAppointmentStatus,
 };
