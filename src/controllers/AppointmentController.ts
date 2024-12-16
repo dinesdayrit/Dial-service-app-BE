@@ -35,12 +35,21 @@ const createAppointment = async (req: Request, res: Response) => {
       res.status(400).json({ message: "Invalid input data" });
       return;
     }
+    // Validate and parse the appointment date
+    const appointmentDate = new Date(apointmentDetails.appointmentDate);
+    if (isNaN(appointmentDate.getTime())) {
+      res.status(400).json({ message: "Invalid appointment date" });
+      return;
+    }
 
     // Create a new appointment document
     const newAppointment = new Appointment({
       ServiceProvider: serviceProvider,
       user: userId,
-      apointmentDetails,
+      apointmentDetails: {
+        ...apointmentDetails,
+        appointmentDate,
+      },
       status: status || "placed",
       createdAt: new Date(),
     });
